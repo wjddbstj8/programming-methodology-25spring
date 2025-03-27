@@ -1,14 +1,11 @@
 # 📝 Assignment: Test-Driven Development — Implementing a `TodoList` Class in C++
 
----
-
 ## Objective
 
 You will **write tests first** (TDD style) and then implement a simple
 `TodoList` class in C++. You will use **Google Test (gtest)** to guide your
 development process.
 
----
 
 ## Specification
 
@@ -23,7 +20,6 @@ Implement a class `TodoList` that supports the following functionality:
 
 📌 Tasks are represented as `std::string`. You do **not** need to persist tasks or implement a GUI.
 
----
 
 ## Starter Code
 
