@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include "calculator.h"
+#include <limits>
+#include <stdexcept>
 
 TEST(CalculatorTest, Add) {
     Calculator calc;
@@ -28,4 +30,46 @@ TEST(CalculatorTest, Divide) {
 TEST(CalculatorTest, DivideByZero) {
     Calculator calc;
     EXPECT_THROW(calc.div(10, 0), std::invalid_argument);
+}
+
+TEST(CalculatorTest, AddOverflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::max();
+    EXPECT_THROW(calc.add(a, 1), std::overflow_error);
+}
+
+TEST(CalculatorTest, AddUnderflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::min();
+    EXPECT_THROW(calc.add(a, -1), std::overflow_error);
+}
+
+TEST(CalculatorTest, SubtractOverflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::max();
+    EXPECT_THROW(calc.sub(a, -1), std::overflow_error);
+}
+
+TEST(CalculatorTest, SubtractUnderflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::min();
+    EXPECT_THROW(calc.sub(a, 1), std::overflow_error);
+}
+
+TEST(CalculatorTest, MultiplyOverflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::max() / 2 + 1;
+    EXPECT_THROW(calc.mul(a, 2), std::overflow_error);
+}
+
+TEST(CalculatorTest, MultiplyUnderflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::min() / 2;
+    EXPECT_THROW(calc.mul(a, 3), std::overflow_error);
+}
+
+TEST(CalculatorTest, DivideOverflow) {
+    Calculator calc;
+    int a = std::numeric_limits<int>::min();
+    EXPECT_THROW(calc.div(a, -1), std::overflow_error);
 }
