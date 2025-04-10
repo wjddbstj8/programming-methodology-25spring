@@ -1,32 +1,42 @@
 # 📝 Assignment: Test-Driven Development — Implementing a `TodoList` Class in C++
 
+
 ## Objective
 
-You will **write tests first** (TDD style) and then implement a simple
-`TodoList` class in C++. You will use **Google Test (gtest)** to guide your
-development process.
+In this assignment, you will implement a `TodoList` class using **manual memory management** with `char**`, and no use of STL or C string libraries. You’ll also write your own test cases using **Google Test**.
 
+---
 
-## Specification
+## What You Will Practice
 
-Implement a class `TodoList` that supports the following functionality:
+- Using `char*` and `char**` to manage strings and dynamic arrays
+- Writing custom `string_length` and `string_copy` functions
+- Managing memory with `new[]` and `delete[]`
+- Writing unit tests with Google Test
+- Performing bounds checking and handling errors properly
 
-| Method               | Description                                                   |
-|----------------------|---------------------------------------------------------------|
-| `add_task(string)`   | Adds a new task                                               |
-| `remove_task(int)`   | Removes the task at the given index                           |
-| `complete_task(int)` | Marks the task as completed (removes it from the pending list)|
-| `get_pending_tasks()`| Returns a list of all pending tasks                           |
+## 📚 Requirements
 
-📌 Tasks are represented as `std::string`. You do **not** need to persist tasks or implement a GUI.
+You must implement a class with the following interface:
 
+```cpp
+class TodoList {
+public:
+    TodoList();
+    ~TodoList();
 
-## Starter Code
+    void add_task(const char* task);
+    void remove_task(int index);
+    void complete_task(int index);
+    const char** get_pending_tasks(int& count) const;
 
-You are given:
+private:
+    static const int MAX_TASKS = 32;
+    char* tasks[MAX_TASKS];
+    int size;
 
-- `todo.h` — function declarations
-- `todo.cpp` — empty implementations
-- `test_todo.cpp` — starter tests (some marked as TODO)
-- `CMakeLists.txt` — to build everything with Google Test
-
+    void remove_at(int index);
+    int string_length(const char* str) const;
+    void string_copy(char* dest, const char* src) const;
+};
+```

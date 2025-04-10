@@ -1,33 +1,29 @@
 #include <gtest/gtest.h>
 #include "todo.h"
 
-TEST(TodoListTest, AddTask) {
+TEST(TodoListTest, AddSingleTask) {
     TodoList todo;
-    todo.add_task("Write slides");
-    auto tasks = todo.get_pending_tasks();
-    EXPECT_EQ(tasks.size(), 1);
-    EXPECT_EQ(tasks[0], "Write slides");
+    todo.add_task("Write code");
+    int count;
+    const char** tasks = todo.get_pending_tasks(count);
+
+    ASSERT_EQ(count, 1);
+    EXPECT_STREQ(tasks[0], "Write code");
 }
 
-TEST(TodoListTest, CompleteTask) {
-    TodoList todo;
-    todo.add_task("A");
-    todo.add_task("B");
-    todo.complete_task(0);
-    auto tasks = todo.get_pending_tasks();
-    EXPECT_EQ(tasks.size(), 1);
-    EXPECT_EQ(tasks[0], "B");
-}
-
-// TODO: Implement this test
 TEST(TodoListTest, RemoveTask) {
     TodoList todo;
     todo.add_task("A");
     todo.add_task("B");
-    // Remove task at index 1
-    // Check that only "A" remains
+    todo.remove_task(0);
 
+    int count;
+    const char** tasks = todo.get_pending_tasks(count);
+
+    ASSERT_EQ(count, 1);
+    EXPECT_STREQ(tasks[0], "B");
 }
 
-// TODO: Add a test for invalid index
-// Use EXPECT_THROW(..., std::out_of_range);
+// TODO: Write a test that tries to remove an invalid index (negative or too large) hint: EXPECT_THROW
+
+// TODO: Write a test that tries to add more than 32 tasks (overflow) hint: EXPECT_THROW
