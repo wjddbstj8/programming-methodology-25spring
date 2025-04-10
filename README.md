@@ -3,17 +3,16 @@
 
 ## Objective
 
-In this assignment, you will implement a `TodoList` class using **manual memory management** with `char**`, and no use of STL or C string libraries. You’ll also write your own test cases using **Google Test**.
+Implement a simple `TodoList` class in C++ using raw pointers (`char**`), with a fixed capacity of 32 tasks. You'll practice manual memory management and write your own unit tests using Google Test.
 
 ---
 
-## What You Will Practice
+## Learning Goals
 
-- Using `char*` and `char**` to manage strings and dynamic arrays
-- Writing custom `string_length` and `string_copy` functions
-- Managing memory with `new[]` and `delete[]`
-- Writing unit tests with Google Test
-- Performing bounds checking and handling errors properly
+- Use `char*` and `char**` to manage arrays of C-style strings
+- Handle memory safely using `new[]` and `delete[]`
+- Write your own versions of `strlen` and `strcpy`
+- Use Google Test to write and run unit tests
 
 ## 📚 Requirements
 
@@ -22,12 +21,11 @@ You must implement a class with the following interface:
 ```cpp
 class TodoList {
 public:
-    TodoList();
-    ~TodoList();
+    void init();     
+    void destroy();  
 
     void add_task(const char* task);
     void remove_task(int index);
-    void complete_task(int index);
     const char** get_pending_tasks(int& count) const;
 
 private:
@@ -35,7 +33,6 @@ private:
     char* tasks[MAX_TASKS];
     int size;
 
-    void remove_at(int index);
     int string_length(const char* str) const;
     void string_copy(char* dest, const char* src) const;
 };
